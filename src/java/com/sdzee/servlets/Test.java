@@ -11,6 +11,8 @@ import com.sdzee.beans.Ludo;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class Test extends HttpServlet {
 	
@@ -30,12 +32,17 @@ public class Test extends HttpServlet {
                 premiereListe.add(138);
                 premiereListe.add(6);
                 
-                DateTime dt = new DateTime();
-                Integer jourDuMois = dt.getDayOfMonth();
-                Integer mois = dt.getMonthOfYear();
-                Integer annee = dt.getYear();
+        DateTime dt = new DateTime();
+        Integer jourDuMois = dt.getDayOfMonth();
+        Integer mois = dt.getMonthOfYear();
+        Integer annee = dt.getYear();
+        
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm ");
+        String date = dt.toString(fmt);
                 
-                request.setAttribute("date", dt);
+                
+                request.setAttribute("date", date);
+                request.setAttribute("auteur", paramAuteur);
 		request.setAttribute("test", message);
 		request.setAttribute("ludo", premierBean);
                 request.setAttribute("liste", premiereListe);
@@ -43,7 +50,7 @@ public class Test extends HttpServlet {
                 request.setAttribute("mois", mois);
                 request.setAttribute("annee", annee);
 
-		this.getServletContext().getRequestDispatcher( "/WEB-INF/test.jsp" ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( "/JSP1.jsp" ).forward( request, response );
 	}
 
 }
